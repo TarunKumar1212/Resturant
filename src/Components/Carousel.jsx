@@ -19,19 +19,19 @@ const Carousel = ({ use }) => {
   };
 
   return (
-    <section className="relative w-full">
+    <section className="relative w-full overflow-hidden"> 
       <Swiper
         modules={[Pagination, Autoplay, Navigation]}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         navigation
-        className={`w-full ${carouselHeight}`}
+        className="w-screen max-w-full" // Ensures full width
       >
         {/* Slide 1 */}
         <SwiperSlide>
           <div className={`relative w-full ${carouselHeight}`}>
-            <img src={Img1} alt="VM Restaurant Ambiance" className="w-full h-full object-cover" />
+            <img src={Img1} alt="VM Restaurant Ambiance" className="w-full h-full object-cover max-w-full" />
             <div className="absolute inset-0 flex flex-col items-center text-center px-10 text-white bg-black/40 justify-center pt-10 md:pt-20">
               <motion.h1 
                 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg"
@@ -67,7 +67,7 @@ const Carousel = ({ use }) => {
         {/* Slide 2 */}
         <SwiperSlide>
           <div className={`relative w-full ${carouselHeight}`}>
-            <img src={Img2} alt="Delicious Dishes at VM Restaurant" className="w-full h-full object-cover" />
+            <img src={Img2} alt="Delicious Dishes at VM Restaurant" className="w-full h-full object-cover max-w-full" />
             <div className="absolute inset-0 flex flex-col items-center text-center px-10 text-white bg-black/40 justify-center pt-10 md:pt-20">
               <motion.h1 
                 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg"
@@ -103,7 +103,7 @@ const Carousel = ({ use }) => {
         {/* Slide 3 */}
         <SwiperSlide>
           <div className={`relative w-full ${carouselHeight}`}>
-            <img src={Img3} alt="Fine Dining Experience" className="w-full h-full object-cover" />
+            <img src={Img3} alt="Fine Dining Experience" className="w-full h-full object-cover max-w-full" />
             <div className="absolute inset-0 flex flex-col items-center text-center px-10 text-white bg-black/40 justify-center pt-10 md:pt-20">
               <motion.h1 
                 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg"

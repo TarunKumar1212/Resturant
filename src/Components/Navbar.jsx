@@ -1,48 +1,67 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react"; // Importing icons
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation(); // Get current route
+
+  // Function to check if the link is active
+  const isActive = (path) => location.pathname === path;
+
+  // Close the menu when resizing window
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setMenuOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <nav className="bg-gray-900 shadow-md fixed top-0 w-full z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6 md:px-8 lg:px-12">
+    
+
+    <nav className=" left-0 bg-gray-800 shadow-md fixed top-0 w-full z-50">
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-5 sm:px-6 md:px-8 lg:px-12">
         
-        {/* Left Section - Company Name */}
+        {/* Left Section - Logo & Tagline */}
         <div className="flex items-center space-x-2">
-          <Link to="/" className="text-3xl sm:text-4xl lg:text-4xl font-bold text-yellow-400 tracking-wider">
-            VS Resturant  
-            <p className="hidden md:block text-gray-400 text-sm lg:text-base italic">Savor Every Bite</p>
+          <Link to="/" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-yellow-400 tracking-wider">
+            Lemon Chilli
+            <p className="hidden sm:block text-gray-400 text-sm lg:text-base italic">Savor Every Bite</p>
           </Link>
         </div>
 
         {/* Middle Section - Navigation Links (Hidden on Mobile) */}
-        <ul className="hidden md:flex space-x-4 lg:space-x-8 text-white text-lg">
-          <li>
-            <Link to="/" className="hover:text-yellow-400 transition-all duration-200">Home</Link>
-          </li>
-          <li>
-            <Link to="/about" className="hover:text-yellow-400 transition-all duration-200">About</Link>
-          </li>
-          <li>
-            <Link to="/menu" className="hover:text-yellow-400 transition-all duration-200">Menu</Link>
-          </li>
-          <li>
-            <Link to="/events" className="hover:text-yellow-400 transition-all duration-200">Events</Link>
-          </li>
-          <li>
-            <Link to="/contact" className="hover:text-yellow-400 transition-all duration-200">Contact</Link>
-          </li>
+        <ul className="hidden md:flex space-x-4 lg:space-x-8 text-white text-base md:text-lg">
+          {[
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+            { name: "Menu", path: "/menu" },
+            { name: "Contact", path: "/contact" },
+          ].map((item) => (
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className={`transition-all duration-200 ${
+                  isActive(item.path) ? "text-yellow-400 font-bold" : "hover:text-yellow-400"
+                }`}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
         </ul>
 
-        {/* Right Section - Buttons */}
+        {/* Right Section - Order Button (Visible on Larger Screens) */}
         <div className="hidden md:flex items-center gap-x-4">
-          <Link to="/signup" className="px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-full transition-all duration-200 text-sm md:text-base lg:text-lg w-auto">
-            Join Us
-          </Link>
-          <Link to="/order" className="px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 lg:py-3 border border-yellow-400 text-yellow-400 font-semibold rounded-full hover:bg-yellow-500 hover:text-gray-900 transition-all duration-200 text-sm md:text-base lg:text-lg w-auto">
+          <Link
+            to="/"
+            className={`px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 lg:py-3 border border-yellow-400 font-semibold rounded-full transition-all duration-200 text-sm md:text-base lg:text-lg ${
+              isActive("/order") ? "bg-yellow-500 text-gray-900" : "text-yellow-400 hover:bg-yellow-500 hover:text-gray-900"
+            }`}
+          >
             Order Now
           </Link>
         </div>
@@ -74,30 +93,39 @@ function Navbar() {
         </div>
 
         <ul className="mt-4 space-y-4 text-center text-white text-lg">
-          <motion.li initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.15, delay: 0.05 }}>
-            <Link to="/" className="block hover:text-yellow-400 transition-all duration-200" onClick={() => setMenuOpen(false)}>Home</Link>
-          </motion.li>
-          <motion.li initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.15, delay: 0.1 }}>
-            <Link to="/about" className="block hover:text-yellow-400 transition-all duration-200" onClick={() => setMenuOpen(false)}>About</Link>
-          </motion.li>
-          <motion.li initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.15, delay: 0.15 }}>
-            <Link to="/menu" className="block hover:text-yellow-400 transition-all duration-200" onClick={() => setMenuOpen(false)}>Menu</Link>
-          </motion.li>
-          <motion.li initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.15, delay: 0.2 }}>
-            <Link to="/events" className="block hover:text-yellow-400 transition-all duration-200" onClick={() => setMenuOpen(false)}>Events</Link>
-          </motion.li>
-          <motion.li initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.15, delay: 0.25 }}>
-            <Link to="/contact" className="block hover:text-yellow-400 transition-all duration-200" onClick={() => setMenuOpen(false)}>Contact</Link>
-          </motion.li>
+          {[
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+            { name: "Menu", path: "/menu" },
+            { name: "Contact", path: "/contact" },
+          ].map((item) => (
+            <motion.li
+              key={item.path}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.15, delay: 0.05 }}
+            >
+              <Link
+                to={item.path}
+                className={`block transition-all duration-200 ${
+                  isActive(item.path) ? "text-yellow-400 font-bold" : "hover:text-yellow-400"
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            </motion.li>
+          ))}
 
           {/* Buttons inside Mobile Menu */}
           <motion.li initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.15, delay: 0.3 }}>
-            <Link to="/signup" className="block bg-yellow-400 text-gray-900 text-center px-4 py-2 rounded-full mt-4 hover:bg-yellow-500 transition-all duration-200 text-lg" onClick={() => setMenuOpen(false)}>
-              Join Us
-            </Link>
-          </motion.li>
-          <motion.li initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.15, delay: 0.35 }}>
-            <Link to="/order" className="block border border-yellow-400 text-yellow-400 text-center px-4 py-2 rounded-full hover:bg-yellow-500 hover:text-gray-900 transition-all duration-200 text-lg" onClick={() => setMenuOpen(false)}>
+            <Link
+              to="/order"
+              className={`block border text-center px-4 py-2 rounded-full transition-all duration-200 text-lg ${
+                isActive("/order") ? "bg-yellow-500 text-gray-900" : "border-yellow-400 text-yellow-400 hover:bg-yellow-500 hover:text-gray-900"
+              }`}
+              onClick={() => setMenuOpen(false)}
+            >
               Order Now
             </Link>
           </motion.li>

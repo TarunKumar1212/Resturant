@@ -1,37 +1,23 @@
-/* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
-
-function CardCamponent({ imgSrc, title, description, button }) {
+function CardCamponent({ imgSrc, title, description, button, price }) {
   return (
-    
-
-    
-    <div className="  mt-4 w-64 bg-gray-900 shadow-lg rounded-2xl overflow-hidden transform transition duration-300 hover:scale-105">
-      {/* Image Section */}
-      <div className="w-full h-40 sm:h-44 md:h-48">
-        <img
-          className="w-full h-full object-cover object-center"
-          src={imgSrc}
-          alt={title}
-        />
+    <div className="relative bg-gray-800 text-white rounded-xl overflow-hidden shadow-lg w-72">
+      {/* Price Tag */}
+      <div className="absolute top-2 right-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-lg shadow-md">
+        {price}
       </div>
 
-      {/* Card Content */}
-      <div className="p-4 text-center">
-        <h3 className="text-lg md:text-xl font-bold text-orange-400">{title}</h3>
-        <p className="text-sm md:text-base text-gray-100 mt-2">{description}</p>
+      {/* Image */}
+      <img src={imgSrc} alt={title} className="w-full h-48 object-cover" />
 
-        {/* Button */}
-        <Link
-          to=""
-          className="mt-4 inline-block bg-amber-500 text-white text-sm md:text-base font-semibold py-2 px-4 rounded-full shadow-md hover:bg-amber-600 transition duration-300"
-        >
+      {/* Content */}
+      <div className="p-4">
+        <h3 className="text-xl font-bold">{title}</h3>
+        <p className="text-gray-300 text-sm mt-2">{description}</p>
+        <button className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-lg">
           {button}
-        </Link>
+        </button>
       </div>
     </div>
-
-    
   );
 }
 
