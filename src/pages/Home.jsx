@@ -11,6 +11,7 @@ import About from "./About";
 import Menu from "./Menu";
 import Footer from "../Components/Footer";
 import Contact from "./Contact";
+import ForHomeCard from "../Components/ForHomeCard";
 
 const initialCardsData = [
   {
@@ -20,6 +21,7 @@ const initialCardsData = [
     description:
       "Juicy beef patty with cheddar, fresh veggies, and house sauce in a toasted brioche bun.",
     button: "Look Here",
+     price: "₹199"
   },
   {
     id: 2,
@@ -28,6 +30,7 @@ const initialCardsData = [
     description:
       "Crispy golden pastry filled with spiced potatoes and peas, served with tangy chutney.",
     button: "Look Here",
+     price: "₹199"
   },
   {
     id: 3,
@@ -36,6 +39,7 @@ const initialCardsData = [
     description:
       "Soft dumplings stuffed with flavorful chicken or veggies, steamed to perfection and served with spicy dip.",
     button: "Look Here",
+     price: "₹199"
   },
   {
     id: 4,
@@ -44,6 +48,7 @@ const initialCardsData = [
     description:
       "Tender, juicy chicken marinated in rich spices, grilled or fried to a crispy golden finish.",
     button: "Look Here",
+     price: "₹199"
   },
 ];
 
@@ -81,7 +86,7 @@ function Home() {
         {/* Card Components */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
           {cards.map((card) => (
-            <CardCamponent key={card.id} {...card} />
+            <ForHomeCard key={card.id} {...card} />
           ))}
         </div>
       </div>

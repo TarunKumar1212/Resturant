@@ -1,24 +1,30 @@
-function CardCamponent({ imgSrc, title, description, button, price }) {
+const CardComponent = ({ id, imgSrc, title, description, price, isSelected, onSelect }) => {
   return (
-    <div className="relative bg-gray-800 text-white rounded-xl overflow-hidden shadow-lg w-72">
-      {/* Price Tag */}
-      <div className="absolute top-2 right-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-lg shadow-md">
+    <div
+      className={`bg-white p-4 rounded-lg shadow-lg w-64 relative transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer ${
+        isSelected ? "border-2 border-blue-500" : ""
+      }`}
+      onClick={onSelect}
+    >
+      <span className="absolute top-2 right-2 bg-yellow-500 text-black px-2 py-1 text-sm font-bold rounded">
         {price}
-      </div>
-
-      {/* Image */}
-      <img src={imgSrc} alt={title} className="w-full h-48 object-cover" />
-
-      {/* Content */}
-      <div className="p-4">
-        <h3 className="text-xl font-bold">{title}</h3>
-        <p className="text-gray-300 text-sm mt-2">{description}</p>
-        <button className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-lg">
-          {button}
-        </button>
-      </div>
+      </span>
+      <img src={imgSrc} alt={title} className="w-full h-40 object-cover rounded" />
+      <h3 className="text-xl font-bold mt-3">{title}</h3>
+      <p className="text-gray-600 text-sm">{description}</p>
+      <button
+        onClick={(e) => {
+          e.stopPropagation(); // Prevents click from affecting parent div
+          onSelect();
+        }}
+        className={`cursor-pointer mt-3 py-2 px-4 rounded-lg w-full font-bold ${
+          isSelected ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"
+        } text-white focus:outline-none focus:ring focus:ring-blue-300`}
+      >
+        {isSelected ? "Selected" : "Choose Here"}
+      </button>
     </div>
   );
-}
+};
 
-export default CardCamponent;
+export default CardComponent;

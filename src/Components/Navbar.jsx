@@ -57,7 +57,7 @@ function Navbar() {
         {/* Right Section - Order Button (Visible on Larger Screens) */}
         <div className="hidden md:flex items-center gap-x-4">
           <Link
-            to="/"
+            to="/menu"
             className={`px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 lg:py-3 border border-yellow-400 font-semibold rounded-full transition-all duration-200 text-sm md:text-base lg:text-lg ${
               isActive("/order") ? "bg-yellow-500 text-gray-900" : "text-yellow-400 hover:bg-yellow-500 hover:text-gray-900"
             }`}
@@ -120,7 +120,7 @@ function Navbar() {
           {/* Buttons inside Mobile Menu */}
           <motion.li initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.15, delay: 0.3 }}>
             <Link
-              to="/order"
+              to="/menu"
               className={`block border text-center px-4 py-2 rounded-full transition-all duration-200 text-lg ${
                 isActive("/order") ? "bg-yellow-500 text-gray-900" : "border-yellow-400 text-yellow-400 hover:bg-yellow-500 hover:text-gray-900"
               }`}
